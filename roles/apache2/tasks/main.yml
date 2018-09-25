@@ -1,0 +1,32 @@
+- name: 1. Install Apache2
+  apt: name=apache2 state=present update_cache=yes
+
+- name: 2. Install PHP module for Apache2
+  apt: name=libapache2-mod-php state=present update_cache=yes
+
+- name: 3. Start Apache2
+  service: name=apache2 state=started enabled=yes
+
+- name: 4. Copy index.html file for Web App
+  copy: src=index.html dest=/var/www/html/index.html mode=755
+  register: index
+
+- name: 5. Copy dest.php file for web App
+  copy: src=dest.php dest=/var/www/html/dest.php mode=755
+  register: dest
+
+- name: 6. Copy viewdata.php file for web App
+  copy: src=viewdata.php dest=/var/www/html/viewdata.php mode=755
+  register: viewdata
+
+- name: 7. Copy style.css file for web App
+  copy: src=style.css dest=/var/www/html/style.css mode=755
+  register: style
+
+- name: 8. Copy phpinfo.php file for web App
+  copy: src=phpinfo.php dest=/var/www/html/phpinfo.php mode=755
+  register: phpinfo
+
+- name: 9. Restart Apache2 Server
+  service: name=apache2 state=restarted
+  when: index.changed or dest.changed or viewdata.changed or style.changed or phpinfo.changed

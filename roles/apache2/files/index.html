@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>User Form</title>
+     <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+
+<div class="form-style">
+<div class="form-style-heading">Provide your details</div>
+<form action="dest.php" method="post">
+<label><span> First Name <span class="required">*</span></span><input type="text" pattern="[A-Za-z ]{1,32}" class="text_styles" name="firstname"  required/></label>
+<label><span>Last Name <span class="required">*</span></span><input type="text" pattern="[A-Za-z]{1,32}" class="text_styles" name="lastname"  required/></label>
+<label><span>Age <span class="required">*</span></span><input type="number" size="2" min="1" max="99" class="text_styles" name="age" required/></label>
+
+<label><span>&nbsp;</span><input type="submit" name= "submit" value="Submit" /></label>
+<span class="view_data"><a href="viewdata.php"> View data</a></span>
+</form>
+
+</div>

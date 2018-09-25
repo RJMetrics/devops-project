@@ -55,3 +55,53 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+
+
+Instructions for starting Web App on Vagrant Environemnt using Ansible Playbook:
+
+1. Clone attached link to local system
+2. Make sure Vagrant Version > 2.0.0 is installed on local machine. Use below link for instructions on installing Vagrant.
+	https://www.vagrantup.com/downloads.html
+3. Make sure Virtualbox is installed. Use below link for intrustion on installing Virtual box.
+	https://www.virtualbox.org/wiki/Downloads
+4. Go to the directory under which Project is cloned
+5. Run below command to start Web APP.
+	vagrant up
+6. To access application from local host, use below link
+	http://localhost:8001/index.html
+7. To access PHP info of server
+	http://localhost:8001/phpinfo.php
+8. To view all the inserted data in MySQL, click viewdata link on home page.
+
+Below is the directory structure for this project.
+
+devops-project
+├── README.md
+├── Vagrantfile
+├── playbook.yml
+└── roles
+    ├── apache2
+    │   ├── files
+    │   │   ├── dest.php
+    │   │   ├── index.html
+    │   │   ├── phpinfo.php
+    │   │   ├── style.css
+    │   │   └── viewdata.php
+    │   └── tasks
+    │       └── main.yml
+    ├── mysql
+    │   ├── files
+    │   │   ├── mysqld.cnf
+    │   │   └── users.sql
+    │   ├── tasks
+    │   │   └── main.yml
+    │   ├── templates
+    │   │   └── my.cnf.j2
+    │   └── vars
+    │       └── main.yml
+    └── php
+        ├── files
+        └── tasks
+            └── main.yml

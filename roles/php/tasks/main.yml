@@ -1,0 +1,9 @@
+- name: 1. Install PHP
+  apt: name=php state=present update_cache=yes
+
+- name: 2. Install PHP module for MYSQL
+  apt: name=php-mysql state=present update_cache=yes
+
+- name: 3. Install php-mcrypt
+  apt: name=php-mcrypt state=present update_cache=yes
+
