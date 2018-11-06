@@ -55,3 +55,17 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+Steps to run the project locally via Vagrant using Ansible:
+•	Clone the repository to our local host.
+•	Install Virtual box (https://www.virtualbox.org/wiki/Downloads) and Vagrant (https://www.vagrantup.com/downloads.html )
+•	Add Ubuntu 16.04 box (https://app.vagrantup.com/ubuntu/boxes/xenial64 ) 
+•	Initialize the box by using “vagrant init” command.
+•	Give “vagrant up” command to run the application.
+•	SSH into ubuntu by giving “vagrant ssh”.
+•	Follow the instructions given.
+•	You can access the application here, http://localhost:8001/index.html
+•	You can access the PHP details here, http://localhost:8001/phpinfo.php
+•	You can access the database server here, http://localhost:3001
+
