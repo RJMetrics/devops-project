@@ -58,7 +58,7 @@ Thanks and good luck!
 
 
 Steps to run the project locally via Vagrant using Ansible:
-•	Clone the repository to our local host.
+•	Clone the repository to your local host.
 •	Install Virtual box (https://www.virtualbox.org/wiki/Downloads) and Vagrant (https://www.vagrantup.com/downloads.html )
 •	Add Ubuntu 16.04 box (https://app.vagrantup.com/ubuntu/boxes/xenial64 ) 
 •	Initialize the box by using “vagrant init” command.
