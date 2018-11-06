@@ -55,3 +55,10 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+### How to setup the stack
+ 1. Download vagrant
+ 2. Download virtualbox
+ 3. execute 'Vagrant up'
+ 
