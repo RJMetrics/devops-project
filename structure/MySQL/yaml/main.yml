@@ -1,0 +1,45 @@
+- name: 1. Install MYSQL v5.7
+  apt: name=mysql-server-5.7 state=present update_cache=yes
+
+- name: 2. Install MYSQL Python Module
+  apt: name=python-mysqldb state=present update_cache=yes
+
+- name: 3. Copy config file for MYSQL to allow access from Local system
+  copy: src=mysqld.cnf dest=/etc/mysql/mysql.conf.d/mysqld.cnf mode=755
+  register: configchange
+
+- name: 4. Update MySQL root password for all root accounts 
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_root_pass }}"
+    state: present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: 5. Copy root password file for MYSQL
+  template: src=my.cnf.j2 dest=~/.my.cnf mode=600
+
+- name: 6. Restart MySQL Server
+  service: name=mysql state=restarted enabled=yes
+  when: configchange.changed
+
+- name: 7. Create a testdb schema in MySQL
+  mysql_db: name=testdb state=present
+
+- name: 8. Copy SQL file for Users table creation
+  copy: src=users.sql dest=/tmp/users.sql
+  register: sqlfile
+
+- name: 9. Create Users table in testdb
+  mysql_db: name=testdb state=import target=/tmp/users.sql
+  when: sqlfile.changed
+
+- name: 10. Create a user for localhost database access to testdb
+  mysql_user: name=testdb password=testdb priv=testdb.*:ALL,GRANT host=localhost state=present
+
+- name: 11. Create a user for external database access to testdb
+  mysql_user: name=testdb password=testdb priv=testdb.*:ALL,GRANT host=% state=present

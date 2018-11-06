@@ -1,0 +1,16 @@
+- name: 1. Install Apache2
+  apt: name=apache2 state=present update_cache=yes
+
+- name: 2. Install PHP module for Apache2
+  apt: name=libapache2-mod-php state=present update_cache=yes
+
+- name: 3. Start Apache2
+  service: name=apache2 state=started enabled=yes
+
+- name: 4. Copy phpinfo.php file for web App
+  copy: src=phpinfo.php dest=/var/www/html/phpinfo.php mode=755
+  register: phpinfo
+
+- name: 5. Restart Apache2 Server
+  service: name=apache2 state=restarted
+  when: phpinfo.changed
