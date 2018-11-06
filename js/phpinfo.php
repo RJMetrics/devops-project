@@ -1,6 +1,6 @@
-/**
- * phpinfo.php page should be at 
- *  http://localhost:8001/phpinfo.php
+/*
+  phpinfo.php page should be at 
+  http://localhost:8001/phpinfo.php
  */
 <!DOCTYPE html>
 <html>
