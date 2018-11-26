@@ -29,3 +29,8 @@
 
 - name: Upload index.php File to the remote web directory
   copy: src=index.php dest=/var/www/html/
+
+- name: Remove Default Apache page 
+  file:
+    path: /var/www/html/index.html
+    state: absent
