@@ -1,0 +1,11 @@
+---
+
+- name: Web01
+  hosts: web01 
+  become: yes
+  roles:
+    - general
+    - apache
+    - {name: php, tags: php}
+    - {name: mysql, tags: mysql}
+  

@@ -55,3 +55,14 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+# How to run application
+1. Clone this repo to your computer
+2. Make sure you have Virtualbox and Vagrant installed on your local machine 
+3. In the project directory, run 'vagrant up' to provision VMs, one a control VM and another VM hosting the Web Application 
+4. Once the VMs are up and running, run 'vagrant ssh control' to log in to the controller VM
+5. Run 'cd /vagrant' to move to the vagrant directory
+6. From within the vagrant directory run 'ansible-playbook -i hosts.yml playbook.yml' for Ansible to create the environment
+7. Once the environment is up, open a browser on your local machine and access the application with 'http://localhost:8001/index.php'
+8. Enter few Users by filling the form and clicking the 'Send' button after every entry.
+9. Click on the 'Users' button to see a list of users you entered below the form.
