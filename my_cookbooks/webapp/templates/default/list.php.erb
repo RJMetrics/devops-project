@@ -1,0 +1,60 @@
+<?php
+require "config.php";
+
+$conn = mysqli_connect($host, $username, $password, $dbname);
+if (!$conn) {
+	die ('MySQL connection failed: ' . mysqli_connect_error());	
+}
+
+$sql = 'SELECT * 
+		FROM Users';
+		
+$query = mysqli_query($conn, $sql);
+
+if (!$query) {
+	die ('SQL Error: ' . mysqli_error($conn));
+}
+?>
+<html>
+<head>
+	<title>Displaying MySQL Data in HTML Table</title>
+	<link rel="stylesheet" href="display.css">
+</head>
+<body>
+	<h1>Users List Below</h1>
+<p>
+	<a href="index.php">Home</a>
+</p>	
+	<table class="data-table">
+		<caption class="title">Users in DB Displayed</caption>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>FIRSTNAME</th>
+				<th>LASTNAME</th>
+				<th>AGE</th>
+				<th>DATE CREATED</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		$no 	= 1;
+		$total 	= 0;
+		while ($row = mysqli_fetch_array($query))
+		{
+			$amount  = $row['amount'] == 0 ? '' : number_format($row['amount']);
+			echo '<tr>
+					<td>'.$row['id'].'</td>
+					<td>'.$row['firstname'].'</td>
+					<td>'.$row['lastname'].'</td>
+					<td>'.$row['age'].'</td>
+					<td>'. date('F d, Y', strtotime($row['date'])) . '</td>
+				 </tr>';
+			$no++;
+		}?>
+		</tbody>
+		
+	</table>
+	
+</body>
+</html>
