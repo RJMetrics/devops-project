@@ -14,4 +14,4 @@ In order to get quickly started, you can just clone this repository and run `vag
 For following to the host<br>
     1. Your Web server should be reachable on http://localhost:8001 <br>
     2. Your phpinfo.php info page is at http://localhost:8001/phpinfo.php <br>
-    3. Your database server on port 3001 <br>
+    3. Your database server is listening on port 3001 <br>
