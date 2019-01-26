@@ -1,0 +1,9 @@
+#roles/mysql/vars/main.yml
+---
+mysql:
+    db: testdb
+    user: testdb
+    password: testdb
+    privileges: '*.*:ALL'
+    host: '%'
+    bind: 0.0.0.0

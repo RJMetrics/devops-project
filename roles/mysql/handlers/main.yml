@@ -1,0 +1,5 @@
+#roles/myql/handlers/main.yml
+#Handler to restart myql db
+---
+- name: restart mysql
+  service: name=mysql state=restarted

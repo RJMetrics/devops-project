@@ -1,0 +1,31 @@
+# roles/mysql/tasks/main.yml
+---
+- name: 1. Install MySql Server
+  apt: name=mysql-server state=present update_cache=yes
+  
+- name: 2. Install MySql Python Module for Ansible instrumentation
+  apt: name=python-mysqldb state=present update_cache=yes
+
+- name: 3. Run MySQL
+  service: name=mysql state=started enabled=yes
+  
+- name: 4. Create DB user
+  mysql_user: name={{mysql.user}} password={{mysql.password}} priv={{mysql.privileges}} host={{mysql.host}} state=present
+
+- name: 5. Create MySql DB
+  mysql_db: name={{mysql.db}} state=present
+
+- name: 6. Import the SQL
+  copy: src=database.sql dest=/tmp/database.sql
+  register: sqlfile
+
+- name: 7. Create Table using the imported SQL
+  mysql_db: name=testdb state=import target=/tmp/database.sql
+
+- name: 8. Update MySQL remote bind address and restart mysql
+  ini_file: dest=/etc/mysql/mysql.conf.d/mysqld.cnf
+            section=mysqld
+            option=bind-address
+            value={{mysql.bind}}
+  notify:
+  - restart mysql
