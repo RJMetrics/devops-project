@@ -1,0 +1,12 @@
+#roles/php/tasks/main.yml
+# Install PHP and helper packages so that code can run under the Apache server and 
+# talk to the backend MySQL database
+---
+- name: 1. Install PHP
+  apt: name=php state=present update_cache=yes
+
+- name: 2. Install PHP module for MySQL
+  apt: name=php-mysql state=present update_cache=yes
+
+- name: 3. Install php-mcrypt
+  apt: name=php-mcrypt state=present update_cache=yes
