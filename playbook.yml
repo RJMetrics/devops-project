@@ -6,3 +6,4 @@
     - php
     - apache2
     - mysql
+    - unittest

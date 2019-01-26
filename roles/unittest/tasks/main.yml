@@ -1,0 +1,26 @@
+#roles/unittest/tasks/main.yml
+---
+# Check PHP installation 
+# check if page returns a status 200 and fail if "PHP Version" is not in the page contents.
+- uri:
+    url: http://localhost:80/phpinfo.php
+    return_content: yes
+  register: this
+  failed_when: "'PHP Version' not in this.content"
+
+#Check MySQL DB installation
+- name: Make sure we can connect to MySQL via Unix socket.
+  command: "mysql -u {{mysql.user}} -p{{mysql.password}} -e 'SHOW DATABASES;'"
+  changed_when: False
+  
+- name: Make sure we can connect to MySQL via TCP.
+  command: "mysql -u {{mysql.user}} -p{{mysql.password}} -h 127.0.0.1 -e 'SHOW DATABASES;'"
+  changed_when: False
+  
+- name: Make sure DB has been created.
+  command: "mysql -u {{mysql.user}} -p{{mysql.password}} -e 'SHOW DATABASES LIKE \"{{mysql.db}}\";'"
+  changed_when: False
+  
+- name: Make sure DB User has been created.
+  command: "mysql -u {{mysql.user}} -p{{mysql.password}} -e 'SELECT User FROM mysql.user WHERE User=\"{{mysql.user}}\";'"
+  changed_when: False
