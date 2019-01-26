@@ -1,0 +1,15 @@
+#roles/apache2/tasks/main.yml
+---
+- name: 1. Install webserver apache2
+  apt: name=apache2 state=present update_cache=yes
+
+- name: 2. Install the required PHP addon module for apache2
+  apt: name=libapache2-mod-php state=present update_cache=yes
+
+- name: 3. Start apache2
+  service: name=apache2 state=started enabled=yes
+  
+- name: 4. Copy phpinfo.php and restart apache2
+  copy: src=phpinfo.php dest=/var/www/html/phpinfo.php mode=755
+  notify:
+    - restart apache2
