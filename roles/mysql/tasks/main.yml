@@ -1,10 +1,10 @@
 # roles/mysql/tasks/main.yml
 ---
 - name: 1. Install MySql Server
-  apt: name=mysql-server state=present update_cache=yes
+  apt: name=mysql-server state=latest update_cache=yes
   
 - name: 2. Install MySql Python Module for Ansible instrumentation
-  apt: name=python-mysqldb state=present update_cache=yes
+  apt: name=python-mysqldb state=latest update_cache=yes
 
 - name: 3. Run MySQL
   service: name=mysql state=started enabled=yes

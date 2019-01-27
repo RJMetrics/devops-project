@@ -1,7 +1,7 @@
 #roles/apache2/tasks/main.yml
 ---
 - name: 1. Install webserver apache2
-  apt: name=apache2 state=present update_cache=yes
+  apt: name=apache2 state=latest update_cache=yes
 
 - name: 2. Install the required PHP addon module for apache2
   apt: name=libapache2-mod-php state=present update_cache=yes
