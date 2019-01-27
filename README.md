@@ -100,3 +100,45 @@ WebApp will allow you to
     - Update an existing User
     - Delete an existing User
 ```
+
+### File Structure
+
+```
+├── README.md
+├── Vagrantfile
+├── playbook.yml
+└── roles
+    ├── apache2
+    │   ├── files
+    │   │   └── phpinfo.php
+    │   ├── handlers
+    │   │   └── main.yml
+    │   └── tasks
+    │       └── main.yml
+    ├── deploy
+    │   ├── files
+    │   │   ├── create.php
+    │   │   ├── delete.php
+    │   │   ├── error.php
+    │   │   ├── index.php
+    │   │   └── update.php
+    │   ├── tasks
+    │   │   └── main.yml
+    │   └── templates
+    │       └── config.php.j2
+    ├── mysql
+    │   ├── files
+    │   │   └── database.sql
+    │   ├── handlers
+    │   │   └── main.yml
+    │   ├── tasks
+    │   │   └── main.yml
+    │   └── vars
+    │       └── main.yml
+    ├── php
+    │   └── tasks
+    │       └── main.yml
+    └── unittest
+        └── tasks
+            └── main.yml
+```
