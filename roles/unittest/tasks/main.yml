@@ -24,3 +24,11 @@
 - name: Make sure DB User has been created.
   command: "mysql -u {{mysql.user}} -p{{mysql.password}} -e 'SELECT User FROM mysql.user WHERE User=\"{{mysql.user}}\";'"
   changed_when: False
+  
+# Check WebApp deployment
+# check if page returns a status 200 and fail if "User Details" is not in the page contents.
+- uri:
+    url: http://localhost:80/
+    return_content: yes
+  register: this
+  failed_when: "'User Details' not in this.content"

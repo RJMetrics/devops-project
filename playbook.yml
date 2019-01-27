@@ -6,4 +6,5 @@
     - php
     - apache2
     - mysql
+    - deploy
     - unittest

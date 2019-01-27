@@ -3,7 +3,7 @@
 # talk to the backend MySQL database
 ---
 - name: 1. Install PHP
-  apt: name=php state=present update_cache=yes
+  apt: name=php7.* state=latest update_cache=yes
 
 - name: 2. Install PHP module for MySQL
   apt: name=php-mysql state=present update_cache=yes

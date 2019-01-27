@@ -1,0 +1,16 @@
+#roles/deploy/tasks/main.yml
+- name: 1. Copy the config file with DB details
+  template: src=config.php.j2 dest=/var/www/html/config.php mode=755
+
+- name: 2. Delete default index.html page
+  file: path=/var/www/html/index.html state=absent
+    
+- name: 2. Copy source files for Web App
+  copy: src={{ item.src }} dest={{ item.dest }} mode=755
+  with_items:
+    - { src: 'index.php', dest: '/var/www/html/index.php' }
+    - { src: 'create.php', dest: '/var/www/html/create.php' }
+    - { src: 'update.php', dest: '/var/www/html/update.php' }
+    - { src: 'delete.php', dest: '/var/www/html/delete.php' }
+    - { src: 'error.php', dest: '/var/www/html/error.php' }
+  
