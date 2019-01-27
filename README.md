@@ -55,3 +55,47 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+
+# How to run this this Project Locally
+
+## Requirements
+
+Install following in your Local machine
+
+  - VirtualBox  http://www.virtualbox.org
+  - Vagrant http://www.vagrantup.com
+  - Git https://git-scm.com
+
+## Setup
+
+```bash
+mkdir WebAppa
+cd WebAppa
+git clone https://github.com/lambo2019/devops-project.git .
+vagrant up
+```
+
+The Ansible Provisioner will setup the Ubuntu Box and perform Unit Test. Once its complete, Navigate the below links to access the Web Application 
+
+``http://localhost:8001/``             - WebApp
+``http://localhost:8001/phpinfo.php``  - phpinfo
+
+
+For ssh access type:
+```bash
+vagrant ssh
+```
+
+MySQL DB can be accessed over the port 3001
+
+## WebApp Details
+
+WebApp will allow you to 
+```
+    - View all User data
+    - Add a New User
+    - Update an existing User
+    - Delete an existing User
+```
