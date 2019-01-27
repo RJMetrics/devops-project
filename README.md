@@ -71,17 +71,18 @@ Install following in your Local machine
 ## Setup
 
 ```bash
-mkdir WebAppa
-cd WebAppa
+mkdir WebApp
+cd WebApp
 git clone https://github.com/lambo2019/devops-project.git .
 vagrant up
 ```
 
-The Ansible Provisioner will setup the Ubuntu Box and perform Unit Test. Once its complete, Navigate the below links to access the Web Application 
+The Ansible Provisioner will setup the Ubuntu Box and perform Unit Test. Once its complete, Navigate to the below links to access Web Application 
 
-``http://localhost:8001/``             - WebApp
-``http://localhost:8001/phpinfo.php``  - phpinfo
-
+```
+http://localhost:8001/             - WebApp
+http://localhost:8001/phpinfo.php  - phpinfo
+```
 
 For ssh access type:
 ```bash
