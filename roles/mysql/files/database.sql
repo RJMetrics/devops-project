@@ -4,5 +4,5 @@ CREATE TABLE testdb.Users
     Lastname  VARCHAR(40) NOT NULL, 
     Age       INT(3) NOT NULL, 
     CreatedAtTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-    INDEX name (Lastname, Firstname) 
+    PRIMARY KEY (Lastname, Firstname) 
 );
