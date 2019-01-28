@@ -58,7 +58,7 @@ Thanks and good luck!
 
 
 
-# How to run this this Project Locally
+# How to run this Project Locally
 
 ## Requirements
 
@@ -89,7 +89,7 @@ For ssh access type:
 vagrant ssh
 ```
 
-MySQL DB can be accessed over the port 3001
+MySQL DB can be accessed over the port 3001 on localhost
 
 ## WebApp Details
 
