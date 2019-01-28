@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($fname_err) && empty($lname_err) && empty($age_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO Users (Firstname, Lastname, Age) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Users (FirstName, LastName, Age) VALUES (?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters

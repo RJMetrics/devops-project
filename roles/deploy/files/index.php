@@ -56,13 +56,13 @@
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                                         echo "<td>"; echo '<span class="glyphicon glyphicon-user"></span>'; echo "</td>";
-                                        echo "<td>" . $row['Firstname'] . "</td>";
-                                        echo "<td>" . $row['Lastname'] . "</td>";
+                                        echo "<td>" . $row['FirstName'] . "</td>";
+                                        echo "<td>" . $row['LastName'] . "</td>";
                                         echo "<td>" . $row['Age'] . "</td>";
                                         echo "<td>" . $row['CreatedAtTimestamp'] . "</td>";
                                         echo "<td>";
-                                            echo "<a href='update.php?id=". $row['Firstname'] . ":" . $row['Lastname'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                                            echo "<a href='delete.php?id=". $row['Firstname'] . ":" . $row['Lastname'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                                            echo "<a href='update.php?id=". $row['FirstName'] . ":" . $row['LastName'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                                            echo "<a href='delete.php?id=". $row['FirstName'] . ":" . $row['LastName'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }

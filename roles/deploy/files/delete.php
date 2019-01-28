@@ -8,7 +8,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     $id_name = explode(":", $id);
     
     // Prepare a delete statement
-    $sql = "DELETE FROM Users WHERE Firstname = ? and Lastname = ?";
+    $sql = "DELETE FROM Users WHERE FirstName = ? and LastName = ?";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters

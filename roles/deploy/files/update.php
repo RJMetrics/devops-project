@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && !empty($_POST[
     // Check input errors before inserting in database
     if(empty($fname_err) && empty($lname_err) && empty($age_err)){
         // Prepare an update statement
-        $sql = "UPDATE Users SET Firstname=?, Lastname=?, Age=? WHERE Firstname=? and Lastname=?";
+        $sql = "UPDATE Users SET FirstName=?, LastName=?, Age=? WHERE FirstName=? and LastName=?";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && !empty($_POST[
         $id_name = explode(":", $id);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM Users WHERE Firstname=? and Lastname=?";
+        $sql = "SELECT * FROM Users WHERE FirstName=? and LastName=?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_id_fname, $param_id_lname);
@@ -102,8 +102,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && !empty($_POST[
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     
                     // Retrieve individual field value
-                    $fname = $row["Firstname"];
-                    $lname = $row["Lastname"];
+                    $fname = $row["FirstName"];
+                    $lname = $row["LastName"];
                     $age = $row["Age"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
