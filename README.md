@@ -55,3 +55,12 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+### Run Commands
+1. Git clone the repository
+2. Install vagrant and virtualbox
+3. Run below command to create and provision the box/application
+    $vagrant up --provision
+4. Access application page: http://localhost:8001 (Bonus points included)
+5. Access phpinfo page from http://localhost:8001/phpinfo.php

@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/website":{"guestpath":"/var/website","hostpath":"/Users/kirankumar/devops-project/src","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/kirankumar/devops-project","disabled":false,"__vagrantfile":true}}}

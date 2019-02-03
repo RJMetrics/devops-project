@@ -1,0 +1,121 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: install lamp stack
+      become: yes
+      become_user: root
+      apt:
+        pkg:
+          - apache2
+          - python-pip
+          - mysql-server
+          - libapache2-mod-php7.0
+          - php7.0 
+          - php7.0-mysql
+          - php7.0-curl
+          - php7.0-cgi
+          - libmysqlclient-dev
+          - python-dev
+        state: present
+        update_cache: yes
+
+    - name: start apache service
+      become: yes
+      become_user: root
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: start mysql service
+      become: yes
+      become_user: root
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+        #- name: Configure my.cnf
+        #copy: src=my.cnf
+        #    dest=/etc/mysql/my.cnf
+        #    owner=root
+        #    group=root
+        #    mode=0640
+        #notify:
+        #- restart mysql
+
+    - name: install MySQL-python
+      pip:
+        name: MySQL-python
+
+    - name: Create a new database with name 'testdb'
+      mysql_db:
+        name: testdb
+        state: present
+      notify:
+        - import database
+
+    - name: Add mysql-user
+      mysql_user: name=testdb
+                  password=testdb
+                  priv=*.*:ALL
+                  state=present
+      notify:
+        - start mysql
+
+    - name: create target directory
+      file: path=/var/www/html state=directory mode=0755
+
+    - name: deploy index.html
+      become: yes
+      become_user: root
+      copy:
+        src: /var/website/files/index.html
+        dest: /var/www/html/index.html
+
+    - name: deploy phpinfo.php
+      become: yes
+      become_user: root
+      copy:
+        src: /var/website/files/phpinfo.php
+        dest: /var/www/html/phpinfo.php
+
+    - name: deploy insert.php
+      become: yes
+      become_user: root
+      copy:
+        src: /var/website/files/insert.php
+        dest: /var/www/html/insert.php
+
+    - name: deploy mysqld.cnf
+      become: yes
+      become_user: root
+      copy:
+        src: /var/website/files/mysqld.cnf
+        dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+      notify:
+        - restart mysql
+
+    - name: restart apache2
+      service: name=apache2
+               enabled=yes
+               state=restarted
+
+  handlers:
+    - name: start mysql
+      service: name=mysql
+               enabled=yes
+               state=started
+    - name: restart mysql
+      service: name=mysql
+               enabled=yes
+               state=restarted
+
+    - name: import database
+      mysql_db:
+        name: testdb
+        state: import
+        target: /var/website/files/database.sql
+        login_user: testdb
+        login_password: testdb
