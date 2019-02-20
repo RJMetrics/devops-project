@@ -28,15 +28,14 @@ file '/var/www/php/index.html' do
 end
 
 file '/var/www/php/update_get_db_users.php' do
-	content "<?php
-if (isset($_POST['button']))
-{
-$script_execute = 'python /vagrant/mysql_setup.py --su';
-echo '<pre>';
-passthru($script_execute);
-echo '</pre>';
-}
-?>
+	content "<body>
+<FORM NAME ='form1' METHOD ='POST' ACTION = 'update_get_db_users.php'>
+     FirstName: <INPUT TYPE = 'TEXT' VALUE ='' Name='firstname'>
+     LastName: <INPUT TYPE = 'TEXT' VALUE ='' Name='lastname'>
+     Age(Only Integer): <INPUT TYPE = 'TEXT' VALUE ='' Name='age'>
+<INPUT TYPE = 'Submit' Name = 'Submit1' VALUE = 'AddToDB'>
+</FORM>
+</body>
 
 <html>
 <body>
@@ -46,6 +45,17 @@ echo '</pre>';
     </p>
     </form>
 </body>
+
+<?php
+    if (isset($_POST['button']))
+     {
+       $script_execute = 'python /vagrant/mysql_setup.py --su';
+       echo '<pre>';
+       passthru($script_execute);
+       echo '</pre>';
+     }
+?>
+
 
 <html>
 <head>
@@ -58,18 +68,8 @@ echo '</pre>';
     $cmd = $cmd_prefix . $fname . ' --ln ' . $lname . ' --age ' . $age;
     exec($cmd);
 ?>
-
-
 </head>
-<body>
-<FORM NAME ='form1' METHOD ='POST' ACTION = 'update_get_db_users.php'>
-FirstName: <INPUT TYPE = 'TEXT' VALUE ='' Name='firstname'>
-LastName: <INPUT TYPE = 'TEXT' VALUE ='' Name='lastname'>
-Age(Only Integer): <INPUT TYPE = 'TEXT' VALUE ='' Name='age'>
-<INPUT TYPE = 'Submit' Name = 'Submit1' VALUE = 'AddToDB'>
-</FORM>
-</body>
-</head>"
+"
 end
 
 execute "start php" do

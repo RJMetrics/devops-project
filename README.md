@@ -55,3 +55,95 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+
+
+### Vagrant Pre Requisites
+1. virtual box up and running
+2. vagrant exe available from PATH
+3. git command available
+4. vagrant plugin install
+### Vagrant plugin installation command
+```
+#vagrant plugin install vagrant-omnibus
+```
+5. python is installed in HOST
+6. python modules 'requests', 'socket' is available in HOST
+
+
+### Start the setup
+1. clone the devops-project from git repo
+```
+#git clone https://github.com/usunnapu/devops-project
+```
+2. change directory to devops-project 
+```
+#cd devops-project 
+```
+3. bring the vm up using vagrant command
+```
+#vagrant up
+```
+Note: Time to bring the VM up depends on network connectivity. Give it few minutes to start ~5min 
+
+### Test the setup from VM
+
+4. ssh to the vm
+```
+#vagrant ssh
+```
+5. Run validation script (this will check the tcp port and url connectivity)
+```
+#python /vagrant/python check_setup.py --env vm
+```
+
+### Test the setup from HOST
+
+6. Run validation script from host (Ensure requests, socket modules are available in python)
+```
+#python /vagrant/check_setup.py --env host
+```
+7. check the application server URL
+```
+a) open a browser
+b) type in the url `http://localhost:8001`
+   Note: a simple text message is displayed as below
+   `this is php default page from /var/www/php`
+```
+8. check the phpinfo page
+```
+a) open a browser
+b) type in the url `http://localhost:8001/phpinfo.php`
+   Note: all details regarding php is defined here
+```
+9. check users added/listed (to/from) Users table 
+```
+a) open a browser
+b) type in the url `http://localhost:8001/update_get_db_users.php
+   Note: Enter any choice of 'FirstName', 'LastName', 'Age (Only Integers allowed)'
+c) click on 'AddToDB' button. This will add the details provided to the `Users` table
+d) click on 'GetUser' buttom. This will display all the users in `Users` table.
+```
+
+### Common Errors
+```
+# vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'ubuntu/trusty64' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: >= 0
+==> default: Loading metadata for box 'ubuntu/trusty64'
+    default: URL: https://vagrantcloud.com/ubuntu/trusty64
+==> default: Adding box 'uvagr	buntu/trusty64' (v20190206.0.0) for provider: virtualbox
+    default: Downloading: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/20190206.0.0/providers/virtualbox.box
+    default: Download redirected to host: cloud-images.ubuntu.com
+==> default: Successfully added box 'ubuntu/trusty64' (v20190206.0.0) for 'virtualbox'!
+There are errors in the configuration of this machine. Please fix
+the following errors and try again:
+
+Vagrant:
+* Unknown configuration section 'omnibus'.
+```
+```
+Above issue is fixed by running step 4 in Pre Requisites.
+```
+

@@ -6,9 +6,23 @@ from mysql.connector import Error
 logging.basicConfig(filename='/tmp/base_mysql_setup.log', level=logging.INFO)
 
 
-def connect_to_sql_db(user='root', database='mysql', host='localhost'):
+def connect_to_sql_db(user='root', password='',database='mysql', host='localhost'):
+    """
+
+    Parameters:
+    user (string): username for database
+    password (string): password for database
+    database (string): database name
+    host (string): hostname or ip address
+
+    Returns:
+    class object: sql_connect object
+
+    Exception:
+    connector.Error: Error connecting to SQL DB
+    """
     try:
-        sql_connect = connector.connect(user=user, database=database, host=host)
+        sql_connect = connector.connect(user=user, password=password, database=database, host=host)
         logging.info('sql connection established to database: {}'.format(database))
     except Error:
         logging.critical('could not connect to sql DB')
@@ -18,6 +32,14 @@ def connect_to_sql_db(user='root', database='mysql', host='localhost'):
 
 
 def get_sql_cursor(sql_connect):
+    """
+    
+    Parameters:
+    sql_connect (object): sql connect object
+
+    Returns:
+    sql_connect.cursor (object): sql cursor object
+    """
     if sql_connect:
         logging.info('establishing cursor connect')
 
@@ -28,6 +50,19 @@ def get_sql_cursor(sql_connect):
 
 
 def execute_sql_statement(sql_cursor, statement):
+    """
+
+    Parameters:
+    sql_cursor (object): sql cursor
+    statement (str): sql statement to be executed
+
+
+    Exception:
+    connector.Error: SQL cursor execute error
+
+    Returns:
+    output (str): sql command output
+    """
     try:
         sql_cursor.execute(statement)
         logging.info('executed statement: {} successfully'.format(statement))
@@ -42,18 +77,31 @@ def execute_sql_statement(sql_cursor, statement):
         logging.info('no output to return for statement: {}'.format(statement))
 
 
-def create_user_and_grant_priv(sql_cursor, user='testdb', passord='testdb', database='mysql'):
+def create_user_and_grant_priv(sql_cursor, user='testdb', password='testdb', database='mysql'):
+    """
+
+    Parameters:
+    sql_cursor (object): sql cursor
+    user (string): username 
+    password (string): password
+    database (string): database name
+    """
+
     if sql_cursor:
         logging.info('creating user {} in database {}'.format(user, database))
-        create_user_statement = "CREATE USER 'testdb' IDENTIFIED BY 'testdb'"
-        grant_priv_statement = "GRANT ALL PRIVILEGES ON mysql.* TO 'testdb' \
-                                IDENTIFIED BY 'testdb'"
-
+        create_user_statement = "CREATE USER '{}' IDENTIFIED BY '{}'".format(user, password)
+        grant_priv_statement = "GRANT ALL PRIVILEGES ON mysql.* TO '{}' IDENTIFIED BY '{}'".format(user, password)
         execute_sql_statement(sql_cursor, create_user_statement)
         execute_sql_statement(sql_cursor, grant_priv_statement)
 
 
 def create_table(sql_cursor, table_name='Users'):
+    """
+
+    Parameters:
+    sql_cursor (object): sql cursor
+    table_name (string): table name to create
+    """
 
     if sql_cursor:
         all_tables = execute_sql_statement(sql_cursor, 'show tables')
@@ -69,17 +117,37 @@ def create_table(sql_cursor, table_name='Users'):
 
 
 def close_sql_db_connection(sql_connect):
+    """
+    
+    Parameters:
+    sql_connect (object): sql_connect object
+    """
     if sql_connect:
         sql_connect.close()
         logging.info('sql connection closed to database')
 
 
 def update_db_data(sql_cursor, FirstName=None, LastName=None, Age=None, table_name='Users'):
+    """
+
+    Parameters:
+    sql_cursor (object): sql cursor
+    FirstName (string): firstname 
+    LastName (string): lastname
+    Age (int): age
+    table_name (string): table name
+    """
     insert_data_statement = "INSERT INTO {} (FirstName, LastName, Age) VALUES ('{}', '{}', {})".format(table_name, FirstName, LastName, Age)
     execute_sql_statement(sql_cursor, insert_data_statement)
 
 
 def display_db_data(sql_cursor, table_name='Users'):
+    """
+
+    Parameters:
+    sql_cursor (object): sql cursor
+    table_name (string): table name
+    """
     display_db_data_statement = 'SELECT * from {}'.format(table_name)
     all_users_info = execute_sql_statement(sql_cursor, display_db_data_statement)
     logging.info(all_users_info)
@@ -87,8 +155,6 @@ def display_db_data(sql_cursor, table_name='Users'):
         if len(user_info) >= 4:
             print('FirstName: {} LastName: {} Age: {}'.format(user_info[1], user_info[2], user_info[3]))
     
-    return all_users_info if all_users_info else None
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -110,7 +176,7 @@ def main():
 
     # Display all users in Users table
     elif args.su:
-        output = display_db_data(sql_cursor)
+        display_db_data(sql_cursor)
         close_sql_db_connection(sql_connect)
 
     # Creates table, user and grant privileges
