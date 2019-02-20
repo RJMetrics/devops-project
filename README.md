@@ -56,6 +56,7 @@ Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
 
+##### INSTUCTIONS TO SETUP VM
 
 ### Vagrant Pre Requisites
 1. virtual box up and running
@@ -66,8 +67,8 @@ Thanks and good luck!
 ```
 #vagrant plugin install vagrant-omnibus
 ```
-5. python is installed in HOST
-6. python modules 'requests', 'socket' is available in HOST
+5. python is installed in HOST, VM
+6. python modules 'requests', 'socket' is available in HOST and VM.
 
 
 ### Start the setup
@@ -93,7 +94,7 @@ Note: Time to bring the VM up depends on network connectivity. Give it few minut
 ```
 5. Run validation script (this will check the tcp port and url connectivity)
 ```
-#python /vagrant/python check_setup.py --env vm
+#python /vagrant/check_setup.py --env vm
 ```
 
 ### Test the setup from HOST
