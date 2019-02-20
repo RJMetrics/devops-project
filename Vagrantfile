@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     vb.memory = 2048
   end
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
   config.omnibus.chef_version = :latest
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = "cookbooks"
@@ -11,9 +11,14 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "mysql"
     chef.add_recipe "php"
   end
-  config.vm.provision "shell", inline: <<-SHELL
-    python /vagrant/mysql_setup.py --setup
-  SHELL
+  config.vm.define 'lamp-stack' do |set|
+    set.vm.hostname = 'lamp-stack.vagrant.local'
+    set.vm.network "private_network", type: "dhcp"
+  end
   config.vm.network "forwarded_port", guest: 8000, host: 8001
   config.vm.network "forwarded_port", guest: 3306, host: 3001
+  config.vm.provision "shell", inline: <<-SHELL
+    python /vagrant/mysql_root_native_password.py
+    python /vagrant/mysql_setup.py --setup
+  SHELL
 end

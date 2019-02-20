@@ -7,6 +7,6 @@ package 'python-pip' do
 	action :install
 end
 
-execute 'python_mysql_connector' do
-	command "pip install mysql-connector-python"
+execute 'python_packages' do
+	command "pip install mysql-connector-python && pip install pexpect && pip install requests"
 end

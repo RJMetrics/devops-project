@@ -56,7 +56,7 @@ Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
 
-##### INSTUCTIONS TO SETUP VM
+### !!!!!!!!!!!!!!!!!!!!INSTUCTIONS TO SETUP VM!!!!!!!!!!!!!!!!!!!!
 
 ### Vagrant Pre Requisites
 1. virtual box up and running
@@ -67,8 +67,9 @@ Thanks and good luck!
 ```
 #vagrant plugin install vagrant-omnibus
 ```
-5. python is installed in HOST, VM
-6. python modules 'requests', 'socket' is available in HOST and VM.
+5. python is installed in HOST 
+6. python modules 'requests', 'socket' is available in HOST.
+Note: step 5 and 6 are needed to run check setup in HOST
 
 
 ### Start the setup

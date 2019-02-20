@@ -24,11 +24,11 @@ def connect_to_sql_db(user='root', password='',database='mysql', host='localhost
     try:
         sql_connect = connector.connect(user=user, password=password, database=database, host=host)
         logging.info('sql connection established to database: {}'.format(database))
+        
+        return sql_connect
     except Error:
         logging.critical('could not connect to sql DB')
         logging.exception('exception raised is as displayed below')
-
-    return sql_connect
 
 
 def get_sql_cursor(sql_connect):
@@ -151,9 +151,10 @@ def display_db_data(sql_cursor, table_name='Users'):
     display_db_data_statement = 'SELECT * from {}'.format(table_name)
     all_users_info = execute_sql_statement(sql_cursor, display_db_data_statement)
     logging.info(all_users_info)
+    print('FirstName\tLastName\tAge')
     for user_info in all_users_info:
         if len(user_info) >= 4:
-            print('FirstName: {} LastName: {} Age: {}'.format(user_info[1], user_info[2], user_info[3]))
+            print('{}\t\t{}\t\t{}'.format(user_info[1], user_info[2], user_info[3]))
     
 
 def main():
