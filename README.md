@@ -92,7 +92,7 @@ Note: Time to bring the VM up depends on network connectivity. Give it few minut
 ```
 #vagrant ssh
 ```
-5. Run validation script (this will check the tcp port and url connectivity)
+5. Run validation script (this will check the testdb user, tcp port and url connectivity)
 ```
 #python /vagrant/check_setup.py --env vm
 ```

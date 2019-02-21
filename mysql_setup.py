@@ -20,6 +20,7 @@ def connect_to_sql_db(user='root', password='',database='mysql', host='localhost
     password (string): password for database
     database (string): database name
     host (string): hostname or ip address
+    port (int): port number of mysql
 
     Returns:
     sql_connect (object): sql connect object
