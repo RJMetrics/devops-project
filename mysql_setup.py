@@ -3,12 +3,18 @@ import logging
 from mysql import connector
 from mysql.connector import Error
 
-logging.basicConfig(filename='/tmp/base_mysql_setup.log', level=logging.INFO)
 
-
-def connect_to_sql_db(user='root', password='',database='mysql', host='localhost'):
+def set_log_file():
+    """
+    Sets log file
     """
 
+    logging.basicConfig(filename='/tmp/base_mysql_setup.log', level=logging.INFO)
+
+
+def connect_to_sql_db(user='root', password='',database='mysql', host='localhost', port=3306):
+    """
+    Established connection to mysql DB.
     Parameters:
     user (string): username for database
     password (string): password for database
@@ -16,13 +22,13 @@ def connect_to_sql_db(user='root', password='',database='mysql', host='localhost
     host (string): hostname or ip address
 
     Returns:
-    class object: sql_connect object
+    sql_connect (object): sql connect object
 
     Exception:
-    connector.Error: Error connecting to SQL DB
+    Error: Error connecting to SQL DB
     """
     try:
-        sql_connect = connector.connect(user=user, password=password, database=database, host=host)
+        sql_connect = connector.connect(user=user, password=password, database=database, host=host, port=port)
         logging.info('sql connection established to database: {}'.format(database))
         
         return sql_connect
@@ -33,7 +39,7 @@ def connect_to_sql_db(user='root', password='',database='mysql', host='localhost
 
 def get_sql_cursor(sql_connect):
     """
-    
+    Provides sql cursor to execute statements
     Parameters:
     sql_connect (object): sql connect object
 
@@ -51,7 +57,7 @@ def get_sql_cursor(sql_connect):
 
 def execute_sql_statement(sql_cursor, statement):
     """
-
+    Executes sql statements
     Parameters:
     sql_cursor (object): sql cursor
     statement (str): sql statement to be executed
@@ -79,7 +85,7 @@ def execute_sql_statement(sql_cursor, statement):
 
 def create_user_and_grant_priv(sql_cursor, user='testdb', password='testdb', database='mysql'):
     """
-
+    Creates user and grant privileges
     Parameters:
     sql_cursor (object): sql cursor
     user (string): username 
@@ -97,7 +103,7 @@ def create_user_and_grant_priv(sql_cursor, user='testdb', password='testdb', dat
 
 def create_table(sql_cursor, table_name='Users'):
     """
-
+    Creates table 
     Parameters:
     sql_cursor (object): sql cursor
     table_name (string): table name to create
@@ -118,7 +124,7 @@ def create_table(sql_cursor, table_name='Users'):
 
 def close_sql_db_connection(sql_connect):
     """
-    
+    Closes out any active sql sessions
     Parameters:
     sql_connect (object): sql_connect object
     """
@@ -129,7 +135,7 @@ def close_sql_db_connection(sql_connect):
 
 def update_db_data(sql_cursor, FirstName=None, LastName=None, Age=None, table_name='Users'):
     """
-
+    Updates DB with the information passed
     Parameters:
     sql_cursor (object): sql cursor
     FirstName (string): firstname 
@@ -143,7 +149,7 @@ def update_db_data(sql_cursor, FirstName=None, LastName=None, Age=None, table_na
 
 def display_db_data(sql_cursor, table_name='Users'):
     """
-
+    Displays the users in User table
     Parameters:
     sql_cursor (object): sql cursor
     table_name (string): table name
@@ -166,8 +172,10 @@ def main():
     parser.add_argument('--setup', help='setup database with new tables', action='store_true', required=False)
     args = parser.parse_args()
 
+    set_log_file()
+
     # Initial Connection
-    sql_connect = connect_to_sql_db()
+    sql_connect = connect_to_sql_db(password='newpassword')
     sql_cursor = get_sql_cursor(sql_connect)
 
     # Update DB Table (Users) with FirstName, LastName, Age

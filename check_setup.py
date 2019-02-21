@@ -2,11 +2,23 @@ import argparse
 import requests
 import socket
 
+from mysql_setup import connect_to_sql_db, get_sql_cursor, execute_sql_statement, close_sql_db_connection
+
 OKGREEN = '\033[92m'
 FAIL = '\033[91m'
 RESET = '\033[0m'
 
 def check_open_connections(host, port):
+    """
+    checks connectivity using socket module 
+    Parameters:
+    host (string): hostname
+    port (int): port number
+
+    Exception: 
+    socket.error: could not connect to host and port
+    socket.timeout: timeout connecting to host and port
+    """
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         socket_timeout = 10
@@ -21,6 +33,15 @@ def check_open_connections(host, port):
 
 
 def check_url(httpurl):
+    """
+    checks for url status code
+    Parameters:
+    httpurl (string): http url to test connectivity
+
+    Exception:
+    requests.exceptions.ConnectionError: connectivity error to the defined URL
+    Exception: generic exception 
+    """
     status_code=None
     try:
         response = requests.head(httpurl)
@@ -33,6 +54,23 @@ def check_url(httpurl):
 
     if status_code == 200:
         print('URL: {} status: {} OK {}'.format(httpurl, OKGREEN, RESET))
+
+
+def check_testdb_connectivity_to_db(env):
+    """
+    checks db connectivity using testdb user and password
+
+    Parameters:
+    env (string): host or vm 
+    """
+    port = 3001 if env == 'host' else 3306
+    testdb_connect = connect_to_sql_db(user='testdb', password='testdb', port=port)
+    if testdb_connect:
+        print('user: testdb database: mysql status: {} OK {}'.format(OKGREEN, RESET))
+        close_sql_db_connection(testdb_connect)
+    else:
+        print('user: testdb database: mysql status: {} FAIL {}'.format(FAIL, RESET))
+
 
 
 def main():
@@ -50,6 +88,7 @@ def main():
     check_url('http://localhost:{}'.format(php_port))
     check_url('http://localhost:{}/phpinfo.php'.format(php_port))
     check_url('http://localhost:{}/update_get_db_users.php'.format(php_port))
+    check_testdb_connectivity_to_db(args.env)
 
 
 if __name__ == "__main__":

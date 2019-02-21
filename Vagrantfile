@@ -17,8 +17,4 @@ Vagrant.configure("2") do |config|
   end
   config.vm.network "forwarded_port", guest: 8000, host: 8001
   config.vm.network "forwarded_port", guest: 3306, host: 3001
-  config.vm.provision "shell", inline: <<-SHELL
-    python /vagrant/mysql_root_native_password.py
-    python /vagrant/mysql_setup.py --setup
-  SHELL
 end

@@ -58,17 +58,16 @@ Thanks and good luck!
 
 ### !!!!!!!!!!!!!!!!!!!!INSTUCTIONS TO SETUP VM!!!!!!!!!!!!!!!!!!!!
 
-### Vagrant Pre Requisites
+### Host Pre Requisites
 1. virtual box up and running
 2. vagrant exe available from PATH
 3. git command available
 4. vagrant plugin install
-### Vagrant plugin installation command
 ```
 #vagrant plugin install vagrant-omnibus
 ```
-5. python is installed in HOST 
-6. python modules 'requests', 'socket' is available in HOST.
+5. python is installed.
+6. python modules 'mysql.connector', 'requests', 'socket' is available in HOST.
 Note: step 5 and 6 are needed to run check setup in HOST
 
 
@@ -85,7 +84,7 @@ Note: step 5 and 6 are needed to run check setup in HOST
 ```
 #vagrant up
 ```
-Note: Time to bring the VM up depends on network connectivity. Give it few minutes to start ~5min 
+Note: Time to bring the VM up depends on network connectivity. Give it few minutes to start ~5-7 min 
 
 ### Test the setup from VM
 
@@ -104,6 +103,8 @@ Note: Time to bring the VM up depends on network connectivity. Give it few minut
 ```
 #python /vagrant/check_setup.py --env host
 ```
+Note: requests and socket modules should be available in python
+
 7. check the application server URL
 ```
 a) open a browser
@@ -126,26 +127,41 @@ c) click on 'AddToDB' button. This will add the details provided to the `Users` 
 d) click on 'GetUser' buttom. This will display all the users in `Users` table.
 ```
 
-### Common Errors
+### Common Issues noticed were related to not having below items checked
 ```
-# vagrant up
-Bringing machine 'default' up with 'virtualbox' provider...
-==> default: Box 'ubuntu/trusty64' could not be found. Attempting to find and install...
-    default: Box Provider: virtualbox
-    default: Box Version: >= 0
-==> default: Loading metadata for box 'ubuntu/trusty64'
-    default: URL: https://vagrantcloud.com/ubuntu/trusty64
-==> default: Adding box 'uvagr	buntu/trusty64' (v20190206.0.0) for provider: virtualbox
-    default: Downloading: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/20190206.0.0/providers/virtualbox.box
-    default: Download redirected to host: cloud-images.ubuntu.com
-==> default: Successfully added box 'ubuntu/trusty64' (v20190206.0.0) for 'virtualbox'!
-There are errors in the configuration of this machine. Please fix
-the following errors and try again:
-
-Vagrant:
-* Unknown configuration section 'omnibus'.
-```
-```
-Above issue is fixed by running step 4 in Pre Requisites.
+1. Ensure ports 8001 and 3001 are free in the host. 
+2. Ensure python is available 'mysql.connector', 'requests' and 'socket' modules are available in host.
+Note: socket module should be built in for python. 
+Note: if pip is available, run 'pip install requests'
+3. To test sql connection, host needs mysql connector downloaded and installed
+Note: run 'pip install mysql-connector-python' to install mysql connector
 ```
 
+### Sample Results 
+
+Setup checked from Host
+
+```
+Note: below command is run from the in host. Script location should be in the cloned directory of devops-project
+
+DESKTOP-JA4JMV1 MINGW64 ~/Desktop/devops-project (vagrant)
+$ python check_setup.py --env host
+host: localhost port: 8001 status:  OK
+host: localhost port: 3001 status:  OK
+URL: http://localhost:8001 status:  OK
+URL: http://localhost:8001/phpinfo.php status:  OK
+URL: http://localhost:8001/update_get_db_users.php status:  OK
+user: testdb database: mysql status:  OK
+```
+
+setup checked from vm
+
+```
+vagrant@lamp-stack:~$ python /vagrant/check_setup.py --env vm
+host: localhost port: 8000 status:  OK
+host: localhost port: 3306 status:  OK
+URL: http://localhost:8000 status:  OK
+URL: http://localhost:8000/phpinfo.php status:  OK
+URL: http://localhost:8000/update_get_db_users.php status:  OK
+user: testdb database: mysql status:  OK
+```
