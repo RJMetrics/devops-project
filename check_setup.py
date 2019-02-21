@@ -2,7 +2,7 @@ import argparse
 import requests
 import socket
 
-from mysql_setup import connect_to_sql_db, get_sql_cursor, execute_sql_statement, close_sql_db_connection
+from mysql_setup import connect_to_sql_db, close_sql_db_connection
 
 OKGREEN = '\033[92m'
 FAIL = '\033[91m'
