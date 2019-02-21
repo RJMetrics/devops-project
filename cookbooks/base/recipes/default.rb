@@ -1,6 +1,5 @@
 execute 'base_setup' do
-	command "bash -c 'add-apt-repository ppa:ondrej/php && 
-	                  apt-get update'"
+	command "add-apt-repository ppa:ondrej/php && apt-get update"
 end
 
 package 'python-pip' do
