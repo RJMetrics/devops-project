@@ -15,6 +15,6 @@ Vagrant.configure("2") do |config|
     set.vm.hostname = 'lamp-stack.vagrant.local'
     set.vm.network "private_network", type: "dhcp"
   end
-  config.vm.network "forwarded_port", guest: 8000, host: 8001
+  config.vm.network "forwarded_port", guest: 80, host: 8001
   config.vm.network "forwarded_port", guest: 3306, host: 3001
 end

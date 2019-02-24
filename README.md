@@ -158,10 +158,10 @@ setup checked from vm
 
 ```
 vagrant@lamp-stack:~$ python /vagrant/check_setup.py --env vm
-host: localhost port: 8000 status:  OK
+host: localhost port: 80 status:  OK
 host: localhost port: 3306 status:  OK
-URL: http://localhost:8000 status:  OK
-URL: http://localhost:8000/phpinfo.php status:  OK
-URL: http://localhost:8000/update_get_db_users.php status:  OK
+URL: http://localhost:80 status:  OK
+URL: http://localhost:80/phpinfo.php status:  OK
+URL: http://localhost:80/update_get_db_users.php status:  OK
 user: testdb database: mysql status:  OK
 ```

@@ -77,7 +77,7 @@ def main():
     parser = argparse.ArgumentParser("check connectivity and urls from host and vm")
     parser.add_argument("--env", required=True, choices={"host", "vm"}, help="checks connectivity at host or vm level")
     args = parser.parse_args()
-    host_vm_ports = {'php': {'host': 8001, 'vm': 8000},
+    host_vm_ports = {'php': {'host': 8001, 'vm': 80},
                      'mysql': {'host': 3001, 'vm': 3306}}
 
     env_value = args.env

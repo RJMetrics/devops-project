@@ -2,14 +2,7 @@ package "php" do
 	action :install
 end
 
-directory '/var/www/php' do
-	owner 'root'
-	group 'root'
-	mode '0755'
-	action :create
-end
-
-file '/var/www/php/phpinfo.php' do
+file '/var/www/html/phpinfo.php' do
 	content '<?php 
 //show all information, defaults to INFO_ALL
 phpinfo();
@@ -20,14 +13,14 @@ phpinfo();
 	group 'root'
 end
 
-file '/var/www/php/index.html' do
-	content '<html> this is php default page from /var/www/php.</html>'
+file '/var/www/html/index.html' do
+	content '<html> this is http/php default page from /var/www/html.</html>'
 	mode '0755'
 	owner 'root'
 	group 'root'
 end
 
-file '/var/www/php/update_get_db_users.php' do
+file '/var/www/html/update_get_db_users.php' do
 	content "<body>
 <FORM NAME ='form1' METHOD ='POST' ACTION = 'update_get_db_users.php'>
      FirstName: <INPUT TYPE = 'TEXT' VALUE ='' Name='firstname'>
@@ -70,9 +63,4 @@ file '/var/www/php/update_get_db_users.php' do
 ?>
 </head>
 "
-end
-
-execute "start php" do
-	command "nohup php -S 0.0.0.0:8000 -t /var/www/php &"
-	not_if 'ps -ef | grep -i php | grep -v grep'
 end

@@ -17,5 +17,5 @@ end
 
 execute "mysql_db_initial_setup" do
 	command 'python /vagrant/mysql_root_native_password.py && python /vagrant/mysql_setup.py --setup'
-	not_if { ::File.exist?('/tmp/base_mysql_setup.log')}
+	not_if { ::File.exist?('/tmp/root_base_mysql_setup.log')}
 end

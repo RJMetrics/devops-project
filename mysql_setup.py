@@ -1,4 +1,5 @@
 import argparse
+import getpass
 import logging
 from mysql import connector
 from mysql.connector import Error
@@ -8,8 +9,8 @@ def set_log_file():
     """
     Sets log file
     """
-
-    logging.basicConfig(filename='/tmp/base_mysql_setup.log', level=logging.INFO)
+    username = getpass.getuser()
+    logging.basicConfig(filename='/tmp/{}_base_mysql_setup.log'.format(username), level=logging.INFO)
 
 
 def connect_to_sql_db(user='root', password='',database='mysql', host='localhost', port=3306):
