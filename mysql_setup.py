@@ -22,10 +22,8 @@ def connect_to_sql_db(user='root', password='',database='mysql', host='localhost
     database (string): database name
     host (string): hostname or ip address
     port (int): port number of mysql
-
     Returns:
     sql_connect (object): sql connect object
-
     Exception:
     Error: Error connecting to SQL DB
     """
@@ -44,7 +42,6 @@ def get_sql_cursor(sql_connect):
     Provides sql cursor to execute statements
     Parameters:
     sql_connect (object): sql connect object
-
     Returns:
     sql_connect.cursor (object): sql cursor object
     """
@@ -63,11 +60,8 @@ def execute_sql_statement(sql_cursor, statement):
     Parameters:
     sql_cursor (object): sql cursor
     statement (str): sql statement to be executed
-
-
     Exception:
     connector.Error: SQL cursor execute error
-
     Returns:
     output (str): sql command output
     """
@@ -202,4 +196,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

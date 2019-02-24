@@ -110,7 +110,7 @@ Note: requests and socket modules should be available in python
 a) open a browser
 b) type in the url `http://localhost:8001`
    Note: a simple text message is displayed as below
-   `this is php default page from /var/www/php`
+   `this is http/php default page from /var/www/html`
 ```
 8. check the phpinfo page
 ```
