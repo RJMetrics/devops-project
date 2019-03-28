@@ -55,3 +55,24 @@ Hi, thanks for your interest in our Devops Engineering position. As part of the 
 Feel free to reach out to us for clarifications.
 
 Thanks and good luck!
+--------------------------------------------------------------------------
+
+Steps to execute the project locally
+
+1) Accept the pull request and merge the request
+2) Download/Clone the repository
+3) Change the directory to devops-project
+4) Perform "vagrant up"
+5) At this point you can access the web application server at http://localhost:8001
+  
+  a) Enter First Name, Last Name, Age and click on register to confirm the user.
+  b) Once a user registers using the above url, he/she will be displayed a message as "You are registered sucessfully!"
+
+6) To View the users table - click on the link provided "See users table" (This lists the full view of the "Users" table)
+7) To view the php info page access the server at http://localhost:8001/phpinfo.php
+8) The application also allows you to ssh while the vm is running - use vagrant ssh to test this
+
+Note: I assumed that the requested ports are listening and not busy
+
+
+
